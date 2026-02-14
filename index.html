@@ -194,9 +194,27 @@
     </div>
 
     <div class="panel">
-        <div class="section-header"><h3 style="margin:0; color:var(--gear)">Gear</h3></div>
-        <div id="gear-list"></div>
-    </div>
+		<div class="section-header">
+			<h3 style="margin:0; color:var(--gear)">Gear</h3>
+			<div id="gold-tracker" class="stat-pill" style="background:var(--accent)">$500</div>
+		</div>
+		
+		<div class="derived-bar" style="margin-bottom: 10px;">
+			<div class="stat-box" style="background:var(--gear)">
+				<span>Weight</span>
+				<strong id="stat-weight">0 / 20</strong>
+			</div>
+		</div>
+
+		<div id="gear-list"></div>
+		<div class="section-header" style="margin-top:20px">
+			<h3 style="margin:0; color:var(--primary)">Export</h3>
+		</div>
+		<button onclick="window.exportStatblock()" style="width:100%; margin-bottom:10px; background:var(--primary); color:white; border:none; padding:10px;">
+			Generate Statblock
+		</button>
+		<textarea id="export-output" style="width:100%; height:150px; font-family:monospace; font-size:12px; display:none;" readonly></textarea>
+	</div>
 
     <script type="module" src="app.js"></script>
 </body>

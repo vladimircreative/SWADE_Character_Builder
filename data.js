@@ -27,7 +27,7 @@ export const hindranceDB = [
 ];
 
 export const edgeDB = [
-    { name: "Brawny", req: { strength: 6, vigor: 6 }, desc: "Size +1, x4 Encumbrance, and +1 Toughness.", bonus: { toughness: 1 } },
+    { name: "Brawny", req: { strength: 6, vigor: 6 }, desc: "Size +1, x4 Encumbrance, and +1 Toughness.", bonus: { toughness: 1, encumbranceMult: 4 } },
     { name: "Frenzy", req: { fighting: 8 }, desc: "Roll a second Fighting die with one melee attack." },
     { name: "Fleet-Footed", req: { agility: 6 }, desc: "+2 Pace and d10 running die.", bonus: { pace: 2 } }
 ];
