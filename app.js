@@ -26,6 +26,8 @@ function init() {
     document.getElementById('skill-add').onchange = (e) => { 
         if(e.target.value) { char.skills[e.target.value] = 4; render(); }
     };
+	
+	document.getElementById('char-name').oninput = (e) => { char.name = e.target.value; };
 
     handleRaceChange("Human");
 }
@@ -169,6 +171,7 @@ function render() {
     document.getElementById('attr-tracker').className = pts.attr < 0 ? 'stat-pill overspent' : 'stat-pill';
     document.getElementById('skill-tracker').innerText = `Points: ${pts.skill}`;
     document.getElementById('skill-tracker').className = pts.skill < 0 ? 'stat-pill overspent' : 'stat-pill';
+	document.getElementById('char-name').value = char.name;
     
     // Updated Gold and Weight Trackers
     const goldDisplay = document.getElementById('gold-tracker');
