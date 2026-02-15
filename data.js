@@ -63,7 +63,7 @@ export const edgeDB = [
     // Background Edges
     { name: "Alertness", req: {}, desc: "+2 to Notice rolls." },
     { name: "Ambidextrous", req: { agility: 6 }, desc: "Ignore -2 penalty when using off-hand." },
-    { name: "Brawny", req: { strength: 6, vigor: 6 }, desc: "Size +1, x4 Encumbrance, and +1 Toughness.", bonus: { toughness: 1, encumbranceMult: 4 } },
+    { name: "Brawny", req: { strength: 6, vigor: 6 }, desc: "Size +1, x4 Encumbrance, and +1 Toughness.", bonus: { size: 1, toughness: 1, encumbranceMult: 4 } },
     { name: "Fast Healer", req: { vigor: 8 }, desc: "+2 to Vigor rolls when checking for natural healing." },
     { name: "Luck", req: {}, desc: "+1 Benny per session." },
     // Combat Edges

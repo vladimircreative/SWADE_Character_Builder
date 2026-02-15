@@ -1,4 +1,4 @@
-/* style.css */
+/* style.css - Full Master Version (Compact & Complete) */
 :root {
     --primary: #2c3e50;
     --primary-light: #34495e;
@@ -18,32 +18,21 @@ body {
     font-family: 'Segoe UI', system-ui, sans-serif;
     background: var(--bg);
     display: grid;
-    grid-template-columns: 380px 1fr 1fr;
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: 320px 1fr 1fr; /* Narrowed sidebar for better fit */
+    gap: 15px; /* Balanced gap */
+    padding: 15px;
     color: var(--primary);
     margin: 0;
+    font-size: 13px; /* Smaller base font */
 }
 
 .panel {
     background: var(--white);
-    padding: 20px;
+    padding: 18px; /* Restored padding to prevent squashing */
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     height: fit-content;
     transition: transform 0.2s ease;
-}
-
-.panel button {
-    cursor: pointer;
-    border-radius: 4px;
-    border: 1px solid var(--border);
-    background: var(--white);
-    font-weight: bold;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .section-header {
@@ -53,6 +42,11 @@ body {
     border-bottom: 2px solid var(--border);
     padding-bottom: 8px;
     margin-bottom: 15px;
+}
+
+.section-header h3 {
+    font-size: 15px;
+    margin: 0;
 }
 
 /* Derived Stats Bar */
@@ -67,7 +61,7 @@ body {
     background: var(--primary);
     color: var(--white);
     text-align: center;
-    padding: 10px;
+    padding: 8px;
     border-radius: 6px;
     transition: all 0.2s ease;
     border: 2px solid transparent;
@@ -75,14 +69,14 @@ body {
 
 .stat-box span {
     display: block;
-    font-size: 10px;
+    font-size: 9px;
     text-transform: uppercase;
     opacity: 0.8;
     letter-spacing: 0.5px;
 }
 
 .stat-box strong {
-    font-size: 24px;
+    font-size: 18px; /* Compacted stat text */
 }
 
 /* Form Elements */
@@ -93,15 +87,10 @@ body {
 }
 
 input, select {
-    padding: 10px;
+    padding: 8px;
     border: 1px solid var(--border);
     border-radius: 4px;
-    font-size: 14px;
-}
-
-input:focus, select:focus {
-    outline: none;
-    border-color: var(--accent);
+    font-size: 13px;
 }
 
 /* Rows & Controls */
@@ -110,7 +99,7 @@ input:focus, select:focus {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 8px;
-    padding: 6px 8px;
+    padding: 4px 8px;
     border-radius: 6px;
     border: 1px solid transparent;
     transition: all 0.2s ease;
@@ -127,21 +116,21 @@ input:focus, select:focus {
 }
 
 .control-group button {
-    width: 28px;
-    height: 28px;
-    font-size: 16px;
+    width: 26px; /* Slightly smaller buttons */
+    height: 26px;
+    font-size: 14px;
 }
 
 .die-val {
     font-weight: bold;
-    width: 40px;
+    width: 35px;
     text-align: center;
     color: var(--accent);
-    font-size: 16px;
+    font-size: 14px;
     font-family: 'Courier New', monospace;
 }
 
-/* Buttons */
+/* All Button Logic (Restored) */
 button {
     cursor: pointer;
     border-radius: 4px;
@@ -158,14 +147,7 @@ button.expensive:hover {
     filter: brightness(1.1);
 }
 
-.panel button:hover {
-    background: var(--primary);
-    color: var(--white);
-}
-
 .panel button:not(.remove-btn) {
-    width: 28px;
-    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -177,6 +159,7 @@ button.expensive:hover {
 .panel button:hover:not(.remove-btn) {
     background: var(--primary);
     color: var(--white);
+    border-color: var(--primary);
 }
 
 .remove-btn {
@@ -193,9 +176,9 @@ button.expensive:hover {
 .stat-pill {
     background: var(--primary);
     color: var(--white);
-    padding: 3px 12px;
+    padding: 2px 10px;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: bold;
 }
 
@@ -208,15 +191,12 @@ button.expensive:hover {
 .card {
     border-left: 5px solid var(--border);
     margin-bottom: 12px;
-    padding: 12px;
+    padding: 10px;
     background: var(--white);
     border-radius: 4px;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    transition: transform 0.1s;
 }
-
-.card:active { transform: translateY(2px); }
 
 .card.selected {
     border-left-color: var(--edge);
@@ -227,33 +207,24 @@ button.expensive:hover {
 .card-title {
     display: block;
     font-weight: bold;
-    text-transform: capitalize;
+    font-size: 13px;
     margin-bottom: 4px;
     border-bottom: 1px solid #eee;
 }
 
-/* Specific Component Styles */
-#reward-ui {
-    background: #fff3e0;
-    padding: 15px;
-    border-radius: 6px;
-    border: 1px solid #ffe0b2;
-    margin-top: 15px;
+.card div {
+    font-size: 11px !important; /* Smaller description text */
+    line-height: 1.3;
 }
 
-#reward-ui button {
-    width: auto !important;
-    padding: 6px 12px !important;
-}
-
+/* Hindrance Layout */
 .hind-item {
-    background: #fdf7ff; /* Light purple tint */
+    background: #fdf7ff;
     border-left: 4px solid var(--hind);
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 4px;
-    font-size: 13px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    font-size: 12px;
 }
 
 .hind-header {
@@ -262,42 +233,38 @@ button.expensive:hover {
     align-items: center;
     margin-bottom: 4px;
     color: var(--hind);
-}
-
-.btn-action {
-    padding: 6px 12px;
-    width: auto; /* Overrides the fixed width if applied elsewhere */
-    font-size: 12px;
-    flex: 1; /* Makes them share space evenly */
+    font-weight: bold;
 }
 
 .hind-desc {
     color: var(--text-muted);
+    font-size: 11px;
     line-height: 1.3;
 }
 
-.hind-header .remove-btn:hover {
-    background: none !important;
-    transform: scale(1.2);
+/* Reward UI Section */
+#reward-ui {
+    background: #fff3e0;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ffe0b2;
+    margin-top: 15px;
 }
 
-.hind-header .remove-btn {
-    width: auto !important;
-    height: auto !important;
-    padding: 0 4px !important;
-    line-height: 1 !important;
-    border: none !important;
-    background: none !important;
-    color: var(--error) !important;
-    font-size: 20px !important;
+.btn-action {
+    padding: 6px 12px;
+    width: auto;
+    font-size: 11px;
+    font-weight: bold;
 }
 
-/* Highlighting Effects */
+/* Highlighting Effects & Animations */
 .stat-box.highlight-link {
-    background-color: var(--accent) !important; /* Visual pop for Toughness/Parry */
+    background-color: var(--accent) !important;
     box-shadow: 0 0 15px var(--accent);
     transform: scale(1.05);
 }
+
 .row.highlight-link {
     background-color: #fff3e0;
     border-color: var(--accent) !important;

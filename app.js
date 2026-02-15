@@ -152,7 +152,24 @@ function render() {
     const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 	const rData = raceDB[char.race];
     const spiritVal = char.attributes.spirit;
-    const recoverChance = Math.round((1 - (3/spiritVal * 0.5)) * 100);
+	const hasCombatReflexes = char.chosenEdges.includes("Combat Reflexes");
+	const bonus = hasCombatReflexes ? 2 : 0;
+	
+	const failTrait = (1 / spiritVal); // Only rolling a 1 fails (1/dX)
+	const failWild = (1 / 6);          // Only rolling a 1 fails (1/6)
+	const failTraitBase = (3 / spiritVal);
+	const failWildBase = (3 / 6);
+	
+	let prob;
+	if (hasCombatReflexes) {
+		// Probability of NOT rolling a 1 on either die
+		prob = 1 - (failTrait * failWild);
+	} else {
+		// Standard TN 4 probability
+		prob = 1 - (failTraitBase * failWildBase);
+	}
+
+	const recoverChance = Math.round(prob * 100);
 
     if (char.skills['fighting'] === undefined) char.skills['fighting'] = 0;
 
@@ -179,7 +196,11 @@ function render() {
     // Attributes with linked hints and IDs for Skill-highlighting
     document.getElementById('attr-list').innerHTML = Object.keys(char.attributes).map(a => {
         let hint = "", hover = "";
-        if (a === 'spirit') hint = `<div style="font-size:9px; color:var(--accent)">Unshake: ${recoverChance}%</div>`;
+        if (a === 'spirit') {
+			hint = `<div style="font-size:9px; color:var(--accent)">
+						Unshake: ${recoverChance}% ${hasCombatReflexes ? '(Combat Reflexes)' : ''}
+					</div>`;
+		}
         if (a === 'vigor') { 
             hint = `<div style="font-size:9px; color:var(--accent)">Base Toughness</div>`; 
             hover = `onmouseover="window.highlight('stat-box-tough')" onmouseout="window.clearHighlight()"`; 
@@ -230,16 +251,29 @@ function render() {
 			</div>`;
 	}).join('');
     
-    const der = { pace: raceDB[char.race].pace || 6, tough: 2 + (char.attributes.vigor/2), parry: 2 + ((char.skills.fighting||0)/2) };
-    char.chosenEdges.forEach(eName => {
-        const e = edgeDB.find(x => x.name === eName);
-        if(e?.bonus?.toughness) der.tough += e.bonus.toughness;
-        if(e?.bonus?.pace) der.pace += e.bonus.pace;
-    });
+    const der = { 
+		pace: rData.pace || 6, 
+		tough: 2 + (char.attributes.vigor / 2), 
+		parry: 2 + ((char.skills.fighting || 0) / 2),
+		size: rData.size || 0,
+	};
+		
+	char.chosenEdges.forEach(eName => {
+		const e = edgeDB.find(x => x.name === eName);
+		if (e?.bonus) {
+            if (e.bonus.pace) der.pace += e.bonus.pace;
+            if (e.bonus.size) der.size += e.bonus.size;
+            if (e.bonus.parry) der.parry += e.bonus.parry;
+            if (e.bonus.toughness) der.toughBase += e.bonus.toughness;
+        }
+	});
 
-    document.getElementById('stat-pace').innerText = der.pace;
-    document.getElementById('stat-parry').innerText = der.parry;
-    document.getElementById('stat-tough').innerText = `${der.tough + maxArmor}${maxArmor > 0 ? ` (${maxArmor})` : ''}`;
+    const finalToughness = der.tough + der.size + maxArmor;
+
+	document.getElementById('stat-pace').innerText = der.pace;
+	document.getElementById('stat-parry').innerText = der.parry;
+	document.getElementById('stat-tough').innerText = `${finalToughness}${maxArmor > 0 ? ` (${maxArmor})` : ''}`;
+	document.getElementById('stat-size').innerText = (der.size >= 0 ? " " : "") + der.size;
 
     const meet = (req) => Object.entries(req).every(([k, v]) => (char.attributes[k] || char.skills[k] || 0) >= v);
     document.getElementById('edge-tracker').innerText = `${char.chosenEdges.length} / ${pts.edgeLimit}`;
