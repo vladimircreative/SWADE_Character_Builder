@@ -61,7 +61,7 @@ function calculatePoints() {
 function calculateGearStats() {
     let totalSpent = 0, totalWeight = 0, maxArmor = 0;
     char.chosenGear.forEach(gName => {
-        const g = gameData.gearDB.find(x => x.name === gName);
+        const g = gearDB.find(x => x.name === gName);
         if (g) {
             totalSpent += g.cost;
             totalWeight += g.weight;
