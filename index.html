@@ -115,6 +115,16 @@
     <label for="export-output" class="visually-hidden">Generated statblock (Markdown)</label>
     <textarea id="export-output" class="export-area" readonly aria-live="polite"></textarea>
   </section>
+  
+  <div style="position: fixed; bottom: 12px; right: 16px; z-index: 100; background: white; padding: 4px 8px; border-radius: 6px; box-shadow: 0 1px 6px rgba(0,0,0,0.15); font-size: 12px;">
+  <select id="lang-select">
+    <option value="en">English</option>
+	<option value="ru">Русский</option>
+    <option value="es">Español</option>
+	<option value="fr">Français</option>
+    <!-- ... -->
+  </select>
+</div>
 
   <script type="module" src="app.js"></script>
 </body>

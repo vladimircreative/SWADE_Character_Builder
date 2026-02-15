@@ -6,7 +6,7 @@ export const skillLinks = {
     "persuasion": { link: "spirit", core: true },
     "stealth": { link: "agility", core: true },
     // Non-Core Skills
-    "acadmics": { link: "smarts", core: false },
+    "academics": { link: "smarts", core: false },
     "battle": { link: "smarts", core: false },
     "boating": { link: "agility", core: false },
     "driving": { link: "agility", core: false },
