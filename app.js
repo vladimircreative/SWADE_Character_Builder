@@ -150,7 +150,7 @@ window.exportStatblock = () => {
 function render() {
     const pts = calculatePoints();
     const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-
+	const rData = raceDB[char.race];
     const spiritVal = char.attributes.spirit;
     const recoverChance = Math.round((1 - (3/spiritVal * 0.5)) * 100);
 
@@ -168,6 +168,7 @@ function render() {
     document.getElementById('skill-tracker').innerText = `Points: ${pts.skill}`;
     document.getElementById('skill-tracker').className = pts.skill < 0 ? 'stat-pill overspent' : 'stat-pill';
 	document.getElementById('char-name').value = char.name;
+	document.getElementById('race-desc').innerText = rData.desc || "";
     document.getElementById('gold-tracker').innerText = `$${500 - totalSpent}`;
     document.getElementById('gold-tracker').className = (500-totalSpent) < 0 ? 'stat-pill overspent' : 'stat-pill';
     document.getElementById('stat-weight').innerText = `${totalWeight} / ${maxWeight}`;
