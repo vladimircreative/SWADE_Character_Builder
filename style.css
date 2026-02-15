@@ -1,278 +1,508 @@
-/* style.css - Full Master Version (Compact & Complete) */
+/*───────────────────────────────────────────────
+  style.css — Refactored & Modernized (2025/26 style)
+  Savage Worlds Character Sheet
+───────────────────────────────────────────────*/
+
 :root {
-    --primary: #2c3e50;
-    --primary-light: #34495e;
-    --accent: #e67e22;
-    --edge: #27ae60;
-    --gear: #2980b9;
-    --bg: #f4f7f6;
-    --error: #c0392b;
-    --hind: #8e44ad;
-    --text-muted: #666;
-    --border: #e0e0e0;
-    --white: #ffffff;
+  /* Core palette */
+  --primary:       #2c3e50;
+  --primary-light: #34495e;
+  --accent:        #e67e22;
+  --edge:          #27ae60;
+  --gear:          #2980b9;
+  --hind:          #8e44ad;
+  --error:         #c0392b;
+
+  /* Neutrals & backgrounds */
+  --bg:           #f4f7f6;
+  --surface:      #ffffff;
+  --border:       #e0e0e0;
+  --text-muted:   #666666;
+  --text-light:   #999999;
+
+  /* Status / feedback */
+  --warning:      #f39c12;
+  --success:      var(--edge);
 }
 
-/* Base & Layout */
-body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background: var(--bg);
-    display: grid;
-    grid-template-columns: 320px 1fr 1fr; /* Narrowed sidebar for better fit */
-    gap: 15px; /* Balanced gap */
-    padding: 15px;
-    color: var(--primary);
-    margin: 0;
-    font-size: 13px; /* Smaller base font */
+/*───────────────────────────────────────────────
+  Global & Reset
+───────────────────────────────────────────────*/
+
+* {
+  box-sizing: border-box;
 }
+
+body {
+  margin: 0;
+  padding: 16px;
+  font-family: system-ui, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--primary);
+  font-size: 13px;
+  line-height: 1.4;
+
+  display: grid;
+  grid-template-columns: minmax(300px, 340px) 1fr 1fr;
+  gap: 16px;
+  min-height: 100vh;
+}
+
+/*───────────────────────────────────────────────
+  Panels & Sections
+───────────────────────────────────────────────*/
 
 .panel {
-    background: var(--white);
-    padding: 18px; /* Restored padding to prevent squashing */
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    height: fit-content;
-    transition: transform 0.2s ease;
+  background: var(--surface);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 16px 18px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid var(--border);
-    padding-bottom: 8px;
-    margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border);
 }
 
 .section-header h3 {
-    font-size: 15px;
-    margin: 0;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
 }
 
-/* Derived Stats Bar */
+/*───────────────────────────────────────────────
+  Derived Stats Bar
+───────────────────────────────────────────────*/
+
 .derived-bar {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .stat-box {
-    flex: 1;
-    background: var(--primary);
-    color: var(--white);
-    text-align: center;
-    padding: 8px;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    border: 2px solid transparent;
+  flex: 1;
+  background: var(--primary);
+  color: white;
+  text-align: center;
+  padding: 10px 8px;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
 }
 
 .stat-box span {
-    display: block;
-    font-size: 9px;
-    text-transform: uppercase;
-    opacity: 0.8;
-    letter-spacing: 0.5px;
+  display: block;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  opacity: 0.85;
 }
 
 .stat-box strong {
-    font-size: 18px; /* Compacted stat text */
+  font-size: 18px;
+  font-weight: 700;
 }
 
-/* Form Elements */
-.header-inputs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
+/*───────────────────────────────────────────────
+  Form Controls & Inputs
+───────────────────────────────────────────────*/
 
 input, select {
-    padding: 8px;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    font-size: 13px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-size: 13px;
+  background: white;
+  transition: border-color 0.15s ease;
 }
 
-/* Rows & Controls */
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15);
+}
+
+.header-inputs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+/*───────────────────────────────────────────────
+  Attribute / Skill Rows
+───────────────────────────────────────────────*/
+
 .row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    padding: 4px 8px;
-    border-radius: 6px;
-    border: 1px solid transparent;
-    transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.18s ease;
 }
 
 .control-group {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #f8f9fa;
-    padding: 4px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f9fafb;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
 }
 
 .control-group button {
-    width: 26px; /* Slightly smaller buttons */
-    height: 26px;
-    font-size: 14px;
+  width: 28px;
+  height: 28px;
+  font-size: 15px;
+  line-height: 1;
+  border-radius: 5px;
 }
 
-.die-val {
-    font-weight: bold;
-    width: 35px;
-    text-align: center;
-    color: var(--accent);
-    font-size: 14px;
-    font-family: 'Courier New', monospace;
-}
-
-/* All Button Logic (Restored) */
+/* Button base styles */
 button {
-    cursor: pointer;
-    border-radius: 4px;
-    transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+button:not(.remove-btn) {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--primary);
+}
+
+button:hover:not(.remove-btn):not(:disabled) {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
 }
 
 button.expensive {
-    background-color: var(--accent) !important;
-    color: white !important;
-    border-color: var(--accent) !important;
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
 }
 
 button.expensive:hover {
-    filter: brightness(1.1);
-}
-
-.panel button:not(.remove-btn) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--border);
-    background: var(--white);
-    font-weight: bold;
-}
-
-.panel button:hover:not(.remove-btn) {
-    background: var(--primary);
-    color: var(--white);
-    border-color: var(--primary);
+  filter: brightness(1.08);
 }
 
 .remove-btn {
-    width: auto !important;
-    height: auto !important;
-    color: var(--error);
-    border: none !important;
-    background: none !important;
-    font-size: 18px;
-    padding: 0 5px;
+  color: var(--error);
+  background: none;
+  border: none;
+  font-size: 18px;
+  padding: 0 6px;
+  line-height: 1;
 }
 
-/* Trackers & Status */
+.die-val {
+  min-width: 36px;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: var(--accent);
+  font-size: 14.5px;
+}
+
+/*───────────────────────────────────────────────
+  Status Indicators
+───────────────────────────────────────────────*/
+
 .stat-pill {
-    background: var(--primary);
-    color: var(--white);
-    padding: 2px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: bold;
+  background: var(--primary);
+  color: white;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
 }
 
 .overspent {
-    background: var(--error) !important;
-    animation: shake 0.5s;
+  background: var(--error) !important;
+  animation: shake 0.4s ease;
 }
 
-/* Cards (Edges/Gear) */
+/*───────────────────────────────────────────────
+  Cards (Edges & Gear)
+───────────────────────────────────────────────*/
+
 .card {
-    border-left: 5px solid var(--border);
-    margin-bottom: 12px;
-    padding: 10px;
-    background: var(--white);
-    border-radius: 4px;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  background: var(--surface);
+  border-radius: 6px;
+  border-left: 5px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: all 0.18s ease;
 }
 
 .card.selected {
-    border-left-color: var(--edge);
-    background: #f0fff4;
-    border-right: 6px solid var(--edge);
+  border-left-color: var(--edge);
+  background: #f5fdf7;
+  border-right: 5px solid var(--edge);
+  box-shadow: 0 2px 8px rgba(39,174,96,0.15);
 }
 
 .card-title {
-    display: block;
-    font-weight: bold;
-    font-size: 13px;
-    margin-bottom: 4px;
-    border-bottom: 1px solid #eee;
+  font-weight: 600;
+  font-size: 13.5px;
+  margin-bottom: 5px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .card div {
-    font-size: 11px !important; /* Smaller description text */
-    line-height: 1.3;
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: var(--text-muted);
 }
 
-/* Hindrance Layout */
+/*───────────────────────────────────────────────
+  Hindrances
+───────────────────────────────────────────────*/
+
 .hind-item {
-    background: #fdf7ff;
-    border-left: 4px solid var(--hind);
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    font-size: 12px;
+  background: #fdfaff;
+  border-left: 5px solid var(--hind);
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  font-size: 12.5px;
 }
 
 .hind-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 4px;
-    color: var(--hind);
-    font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  color: var(--hind);
+  font-weight: 600;
+  font-size: 13px;
 }
 
 .hind-desc {
-    color: var(--text-muted);
-    font-size: 11px;
-    line-height: 1.3;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  line-height: 1.4;
 }
 
-/* Reward UI Section */
+/*───────────────────────────────────────────────
+  Reward / Hindrance Bank UI
+───────────────────────────────────────────────*/
+
 #reward-ui {
-    background: #fff3e0;
-    padding: 12px;
-    border-radius: 6px;
-    border: 1px solid #ffe0b2;
-    margin-top: 15px;
+  background: #fff8e8;
+  border: 1px solid #ffe8c2;
+  border-radius: 8px;
+  padding: 14px;
+  margin-top: 16px;
 }
 
 .btn-action {
-    padding: 6px 12px;
-    width: auto;
-    font-size: 11px;
-    font-weight: bold;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
 }
 
-/* Highlighting Effects & Animations */
+/*───────────────────────────────────────────────
+  Highlight & Interaction States
+───────────────────────────────────────────────*/
+
 .stat-box.highlight-link {
-    background-color: var(--accent) !important;
-    box-shadow: 0 0 15px var(--accent);
-    transform: scale(1.05);
+  background: var(--accent) !important;
+  box-shadow: 0 0 16px rgba(230,126,34,0.5);
+  transform: scale(1.04);
 }
 
 .row.highlight-link {
-    background-color: #fff3e0;
-    border-color: var(--accent) !important;
-    transform: translateX(5px);
+  background: #fff5e6;
+  border-color: var(--accent);
+  transform: translateX(4px);
 }
 
+/*───────────────────────────────────────────────
+  Animations
+───────────────────────────────────────────────*/
+
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
+  0%, 100% { transform: translateX(0); }
+  20%, 60%  { transform: translateX(-4px); }
+  40%, 80%  { transform: translateX(4px); }
+}
+
+/*───────────────────────────────────────────────
+  Responsive adjustments (basic mobile support)
+───────────────────────────────────────────────*/
+
+@media (max-width: 1100px) {
+  body {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .derived-bar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .control-group button {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+}
+
+/* ── Global compactness ──────────────────────────────────────── */
+:root {
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+}
+
+body {
+  gap: 12px;              /* was 15–16px */
+  padding: 12px;          /* was 15–16px */
+  font-size: 13px;        /* keep or drop to 12.5px if you want more extreme */
+}
+
+.panel {
+  padding: 12px 14px;     /* was 16–18px */
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);  /* lighter shadow */
+}
+
+/* ── Headers & trackers ──────────────────────────────────────── */
+.section-header {
+  margin-bottom: 8px;     /* was 12–15px */
+  padding-bottom: 6px;    /* was 8px */
+}
+
+.section-header h2, .section-header h3 {
+  font-size: 14.5px;      /* was ~15–16px */
+  margin: 0;
+}
+
+.stat-pill {
+  padding: 2px 8px;
+  font-size: 10.5px;      /* was 11px */
+}
+
+/* ── Derived bar ─────────────────────────────────────────────── */
+.derived-bar {
+  gap: 8px;               /* was 10–12px */
+  margin-bottom: 12px;    /* was 20px */
+}
+
+.stat-box {
+  padding: 6px 4px;       /* was 8–10px */
+}
+
+.stat-box span {
+  font-size: 8.5px;       /* was 9–9.5px */
+}
+
+.stat-box strong {
+  font-size: 16px;        /* was 18px — biggest single saving */
+}
+
+/* ── Rows (attributes & skills) ──────────────────────────────── */
+.row {
+  margin-bottom: 4px;     /* was 8px */
+  padding: 4px 6px;       /* was 6–10px */
+}
+
+.control-group {
+  gap: 4px;               /* was 6–8px */
+  padding: 3px 5px;
+}
+
+.control-group button {
+  width: 24px;            /* was 26–28px */
+  height: 24px;
+  font-size: 13px;
+}
+
+.die-val {
+  min-width: 32px;        /* was 35–36px */
+  font-size: 13.5px;      /* was 14–14.5px */
+}
+
+/* ── Cards (edges & gear) ────────────────────────────────────── */
+.card {
+  padding: 8px 10px;      /* was 10–12px */
+  margin-bottom: 6px;     /* was 10–12px */
+}
+
+.card-title {
+  font-size: 13px;        /* was 13.5px */
+  margin-bottom: 3px;
+}
+
+.card div {
+  font-size: 10.5px;      /* was 11–11.5px */
+}
+
+/* ── Hindrances ──────────────────────────────────────────────── */
+.hind-item {
+  padding: 8px;           /* was 10–12px */
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+
+.hind-header {
+  font-size: 12.5px;
+  margin-bottom: 4px;
+}
+
+.hind-desc {
+  font-size: 10.5px;
+}
+
+/* ── Selects & buttons ───────────────────────────────────────── */
+.add-selector {
+  padding: 6px;
+  font-size: 12.5px;
+  margin-top: 6px;        /* was 10px */
+}
+
+.btn-action {
+  padding: 5px 10px;
+  font-size: 11px;
+}
+
+.export-btn {
+  padding: 8px;           /* was 10px */
+  font-size: 13px;
+}
+
+.export-area {
+  height: 120px;          /* was 150px */
+  font-size: 11.5px;
+}
+
+/* ── Reward section ──────────────────────────────────────────── */
+#reward-ui {
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.button-group {
+  gap: 6px;
+  flex-wrap: wrap;
 }

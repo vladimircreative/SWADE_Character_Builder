@@ -1,94 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>SWADE Character Builder</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SWADE Character Builder</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="panel">
-        <div class="header-inputs">
-            <input type="text" id="char-name" placeholder="Hero Name">
-            <select id="race-select"></select>
-        </div>
-        <div id="race-desc" style="font-size: 12px; color: #666; font-style: italic; margin-bottom: 15px;"></div>
-        
-        <div class="section-header">
-            <h3 style="margin:0">Attributes</h3>
-            <div id="attr-tracker" class="stat-pill">Points: 5</div>
-        </div>
-        <div id="attr-list"></div>
 
-        <div class="section-header" style="margin-top:25px">
-            <h3 style="margin:0">Skills</h3>
-            <div id="skill-tracker" class="stat-pill">Points: 12</div>
-        </div>
-        <div id="active-skills"></div>
-        <select id="skill-add" style="width:100%; margin-top:10px"></select>
+  <!-- Left column ── Basics + Attributes + Skills -->
+  <section class="panel" aria-labelledby="basics-heading">
+    <header class="header-inputs">
+      <div class="input-group">
+        <label for="char-name">Hero Name</label>
+        <input type="text" id="char-name" placeholder="Enter hero name" autocomplete="off">
+      </div>
+      <div class="input-group">
+        <label for="race-select">Race / Ancestry</label>
+        <select id="race-select" aria-describedby="race-desc"></select>
+      </div>
+    </header>
+
+    <p id="race-desc" class="race-description"></p>
+
+    <div class="section-header">
+      <h2 id="basics-heading">Attributes</h2>
+      <div id="attr-tracker" class="stat-pill" aria-live="polite">Points: 5</div>
+    </div>
+    <div id="attr-list" class="stat-rows"></div>
+
+    <div class="section-header">
+      <h2>Skills</h2>
+      <div id="skill-tracker" class="stat-pill" aria-live="polite">Points: 12</div>
+    </div>
+    <div id="active-skills" class="stat-rows"></div>
+    <select id="skill-add" class="add-selector" aria-label="Add new skill">
+      <option value="">+ Add Skill</option>
+    </select>
+  </section>
+
+  <!-- Middle column ── Derived + Edges + Hindrances -->
+  <section class="panel" aria-labelledby="derived-heading">
+    <div class="derived-bar" role="region" aria-label="Derived statistics">
+      <div class="stat-box" id="stat-box-pace">
+        <span>Pace</span>
+        <strong id="stat-pace">6</strong>
+      </div>
+      <div class="stat-box" id="stat-box-size">
+        <span>Size</span>
+        <strong id="stat-size">0</strong>
+      </div>
+      <div class="stat-box" id="stat-box-parry">
+        <span>Parry</span>
+        <strong id="stat-parry">2</strong>
+      </div>
+      <div class="stat-box" id="stat-box-tough">
+        <span>Toughness</span>
+        <strong id="stat-tough">4</strong>
+      </div>
     </div>
 
-    <div class="panel">
-        <div class="derived-bar">
-			<div class="stat-box" id="stat-box-pace">
-				<span>Pace</span><strong id="stat-pace">6</strong>
-			</div>
-			<div class="stat-box" id="stat-box-size">
-				<span>Size</span><strong id="stat-size">0</strong>
-			</div>
-			<div class="stat-box" id="stat-box-parry">
-				<span>Parry</span><strong id="stat-parry">2</strong>
-			</div>
-			<div class="stat-box" id="stat-box-tough">
-				<span>Toughness</span><strong id="stat-tough">4</strong>
-			</div>
-		</div>
-
-        <div class="section-header">
-            <h3 style="margin:0; color:var(--edge)">Edges</h3>
-            <div id="edge-tracker" class="stat-pill">0 / 1</div>
-        </div>
-        <div id="edge-list" style="margin-bottom: 20px;"></div>
-
-        <div class="section-header">
-            <h3 style="margin:0; color:var(--hind)">Hindrances</h3>
-            <div id="hind-bank" class="stat-pill" style="background:var(--accent)">Bank: 0</div>
-        </div>
-        <div id="active-hindrances"></div> <select id="hindrance-add" style="width:100%; margin-top:10px"></select>
-
-        <div id="reward-ui" style="display:none">
-		<small><strong>Spend Hindrance Points:</strong></small>
-		<div style="display:flex; gap:5px; margin-top:8px">
-			<button class="btn-action" onclick="window.spendPoints('attr')">Attr (2)</button>
-			<button class="btn-action" onclick="window.spendPoints('edge')">Edge (2)</button>
-			<button class="btn-action" onclick="window.spendPoints('skill')">Skill (1)</button>
-			<button class="btn-action" onclick="window.resetRewards()" style="color:var(--error)">Reset</button>
-		</div>
-	</div>
+    <div class="section-header">
+      <h2 id="derived-heading">Derived Stats</h2>
     </div>
 
-    <div class="panel">
-		<div class="section-header">
-			<h3 style="margin:0; color:var(--gear)">Gear</h3>
-			<div id="gold-tracker" class="stat-pill" style="background:var(--accent)">$500</div>
-		</div>
-		
-		<div class="derived-bar" style="margin-bottom: 10px;">
-			<div class="stat-box" style="background:var(--gear)">
-				<span>Weight</span>
-				<strong id="stat-weight">0 / 20</strong>
-			</div>
-		</div>
+    <div class="section-header">
+      <h3 style="color: var(--edge)">Edges</h3>
+      <div id="edge-tracker" class="stat-pill" aria-live="polite">0 / 1</div>
+    </div>
+    <div id="edge-list" class="card-container"></div>
 
-		<div id="gear-list"></div>
-		<div class="section-header" style="margin-top:20px">
-			<h3 style="margin:0; color:var(--primary)">Export</h3>
-		</div>
-		<button onclick="window.exportStatblock()" style="width:100%; margin-bottom:10px; background:var(--primary); color:white; border:none; padding:10px;">
-			Generate Statblock
-		</button>
-		<textarea id="export-output" style="width:100%; height:150px; font-family:monospace; font-size:12px; display:none;" readonly></textarea>
-	</div>
+    <div class="section-header">
+      <h3 style="color: var(--hind)">Hindrances</h3>
+      <div id="hind-bank" class="stat-pill" style="background: var(--accent)" aria-live="polite">Bank: 0</div>
+    </div>
+    <div id="active-hindrances" class="hindrance-list"></div>
+    <select id="hindrance-add" class="add-selector" aria-label="Add hindrance">
+      <option value="">+ Add Hindrance</option>
+    </select>
 
-    <script type="module" src="app.js"></script>
-	<link rel="stylesheet" href="style.css">
+    <div id="reward-ui" class="reward-section" role="region" aria-label="Spend hindrance points" hidden>
+      <p><strong>Spend Hindrance Points:</strong></p>
+      <div class="button-group">
+        <button class="btn-action" onclick="window.spendPoints('attr')">+1 Attribute (2 pts)</button>
+        <button class="btn-action" onclick="window.spendPoints('edge')">+1 Edge     (2 pts)</button>
+        <button class="btn-action" onclick="window.spendPoints('skill')">+1 Skill    (1 pt)</button>
+        <button class="btn-action danger" onclick="window.resetRewards()">Reset</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Right column ── Gear + Export -->
+  <section class="panel" aria-labelledby="gear-heading">
+    <div class="section-header">
+      <h2 id="gear-heading" style="color: var(--gear)">Gear & Equipment</h2>
+      <div id="gold-tracker" class="stat-pill" style="background: var(--accent)" aria-live="polite">$500</div>
+    </div>
+
+    <div class="derived-bar compact">
+      <div class="stat-box" style="background: var(--gear)">
+        <span>Weight Carried</span>
+        <strong id="stat-weight">0 / 20</strong>
+      </div>
+    </div>
+
+    <div id="gear-list" class="card-container"></div>
+
+    <div class="section-header">
+      <h3 style="color: var(--primary)">Export Character</h3>
+    </div>
+    <button type="button" class="export-btn" onclick="window.exportStatblock()">
+      Generate & Copy Statblock
+    </button>
+    <label for="export-output" class="visually-hidden">Generated statblock (Markdown)</label>
+    <textarea id="export-output" class="export-area" readonly aria-live="polite"></textarea>
+  </section>
+
+  <script type="module" src="app.js"></script>
 </body>
 </html>
